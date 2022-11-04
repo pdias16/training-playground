@@ -7,15 +7,15 @@ pipeline {
     stages {
     	stage("First") {
 		steps {
-			writeToFile('file.txt')
+			writeToFile()
 			sh "sleep 10"
-			writeToFile('file.txt')
+			writeToFile()
 			sh "sleep 10"
 		}
 	}
     }
 }
 
-def writeToFile(file) {
-	sh "echo date >> file && cat file"
+def writeToFile() {
+	sh "echo date >> file.txt && cat file.txt"
 }

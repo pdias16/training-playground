@@ -5,5 +5,10 @@ pipeline {
 		}
 	}
     stages {
+    	stage("First") {
+		steps {
+			sh "date > file.txt"
+		}
+	}
     }
 }

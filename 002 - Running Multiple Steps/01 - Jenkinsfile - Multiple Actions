@@ -17,5 +17,5 @@ pipeline {
 }
 
 def writeToFile(file) {
-	sh "date > file && cat file"
+	sh "echo date >> file && cat file"
 }

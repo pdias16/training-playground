@@ -11,11 +11,13 @@ pipeline {
 			parameters {
 				string(name: 'NAME', defaultValue: 'Mr Jenkins', description: 'Name')
 			}
+		}
+		input {
 			message "How old are you?"
 			parameters {
 				string(name: 'AGE', defaultValue: '20', description: 'Age')
 			}
-            }
+            	}
             steps {
                 echo "$NAME"
                 echo "$AGE"

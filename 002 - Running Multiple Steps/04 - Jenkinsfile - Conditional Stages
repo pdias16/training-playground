@@ -4,6 +4,25 @@ pipeline {
 			image 'alpine:latest' 
 		}
 	}
+    parameters {
+    	choice(name: 'PHASE', choices: ['build', 'test'])
+    }
     stages {
+    	stage('build') {
+		when {
+			$params.PHASE == 'build'
+		}
+		steps {
+			echo "build"
+		}
+	}
+	stage('test') {
+		when {
+			$params.PHASE == 'test'
+		}
+		steps {
+			echo "test"
+		}
+	}
     }
 }

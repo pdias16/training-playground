@@ -11,7 +11,7 @@ pipeline {
     	stage('build') {
 		when {
 			expression {
-				${params.PHASE == 'build'
+				params.PHASE == 'build'
 			}
 		}
 		steps {
@@ -21,7 +21,7 @@ pipeline {
 	stage('test') {
 		when {
 			expression {
-				${params.PHASE == 'test'
+				params.PHASE == 'test'
 			}
 		}
 		steps {
@@ -29,5 +29,4 @@ pipeline {
 		}
 	}
     }
-}
 }

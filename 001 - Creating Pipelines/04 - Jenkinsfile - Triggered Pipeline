@@ -11,6 +11,10 @@ pipeline {
         stage('build') {
             steps {
                 sh 'cat /etc/alpine-release'
+		script {
+			def now = LocalDateTime.now()
+			println now
+		}
             }
         }
     }

@@ -17,7 +17,5 @@ pipeline {
 }
 
 def writeToFile(file) {
-  touch "$file"
-  "date > $file"
-  "cat $file"
+	sh "date > file && cat file"
 }

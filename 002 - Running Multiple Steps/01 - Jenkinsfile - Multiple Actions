@@ -7,9 +7,17 @@ pipeline {
     stages {
     	stage("First") {
 		steps {
-			sh "date > file.txt"
-			sh "cat file.txt"
+			writeToFile('file.txt')
+			sh "sleep 10"
+			writeToFile('file.txt')
+			sh "sleep 10"
 		}
 	}
     }
+}
+
+def writeToFile(file) {
+  touch "$file"
+  "date > $file"
+  "cat $file"
 }

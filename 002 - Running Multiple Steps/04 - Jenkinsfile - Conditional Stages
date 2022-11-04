@@ -10,7 +10,9 @@ pipeline {
     stages {
     	stage('build') {
 		when {
-			$params.PHASE == 'build'
+			expression {
+				${params.PHASE == 'build'
+			}
 		}
 		steps {
 			echo "build"
@@ -18,7 +20,9 @@ pipeline {
 	}
 	stage('test') {
 		when {
-			$params.PHASE == 'test'
+			expression {
+				${params.PHASE == 'test'
+			}
 		}
 		steps {
 			echo "test"

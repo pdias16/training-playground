@@ -5,5 +5,26 @@ pipeline {
 		}
 	}
     stages {
+    	stage('Maven') {
+		agent {
+			docker { 
+				image 'mvn:latest' 
+			}
+		}
+		steps {
+			sh 'mvn --version'
+		}
+	}
+	
+	stage('NPM') {
+		agent {
+			docker { 
+				image 'npm:latest' 
+			}
+		}
+		steps {
+			sh 'npm --version'
+		}
+	}
     }
 }

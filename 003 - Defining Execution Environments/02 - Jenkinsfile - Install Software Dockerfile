@@ -1,5 +1,8 @@
 pipeline {
     agent { 
+    	dockerfile {
+			dir '02 - Dockerfile - Dockerfile Agent'
+		}
 	}
     stages {
         stage('build') {

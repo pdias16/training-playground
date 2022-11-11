@@ -3,7 +3,9 @@ pipeline {
     stages {
     	stage('Maven') {
 			agent {
-				docker 'mvn:latest' 
+				docker { 
+					image 'mvn:latest' 
+				}
 			}
 			steps {
 				sh 'mvn --version'
@@ -11,7 +13,9 @@ pipeline {
 		}
 		stage('NPM') {
 			agent {
-				docker 'npm:latest' 
+				docker { 
+					image 'npm:latest' 
+				}
 			}
 			steps {
 				sh 'npm --version'

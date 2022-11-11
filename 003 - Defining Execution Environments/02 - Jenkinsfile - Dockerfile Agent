@@ -9,9 +9,8 @@ pipeline {
 	}
     stages {
         stage('build') {
-            steps {
-            	echo "Don't install curl here!"
-                sh "curl www.google.com"
+            steps {        
+                sh 'if [ "$ENV_VARIABLE" != "Value for execution" ]; then exit 1; fi'
             }
         }
     }

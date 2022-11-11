@@ -1,25 +1,27 @@
 pipeline {
     agent none
     stages {
-		parallel {
-			stage('Maven') {
-				agent {
-					docker { 
-						image 'maven:latest' 
+		stage('Parallel Stage') {
+			parallel {
+				stage('Maven') {
+					agent {
+						docker { 
+							image 'maven:latest' 
+						}
+					}
+					steps {
+						sh 'mvn --version'
 					}
 				}
-				steps {
-					sh 'mvn --version'
-				}
-			}
-			stage('NPM') {
-				agent {
-					docker { 
-						image 'node:latest' 
+				stage('NPM') {
+					agent {
+						docker { 
+							image 'node:latest' 
+						}
 					}
-				}
-				steps {
-					sh 'npm --version'
+					steps {
+						sh 'npm --version'
+					}
 				}
 			}
 		}

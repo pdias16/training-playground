@@ -4,7 +4,7 @@ pipeline {
     	stage('Maven') {
 			agent {
 				docker { 
-					image 'mvn:latest' 
+					image 'maven:latest' 
 				}
 			}
 			steps {
@@ -14,7 +14,7 @@ pipeline {
 		stage('NPM') {
 			agent {
 				docker { 
-					image 'npm:latest' 
+					image 'node:latest' 
 				}
 			}
 			steps {

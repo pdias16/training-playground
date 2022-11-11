@@ -1,0 +1,27 @@
+pipeline {
+    agent none
+    stages {
+		parallel {
+			stage('Maven') {
+				agent {
+					docker { 
+						image 'maven:latest' 
+					}
+				}
+				steps {
+					sh 'mvn --version'
+				}
+			}
+			stage('NPM') {
+				agent {
+					docker { 
+						image 'node:latest' 
+					}
+				}
+				steps {
+					sh 'npm --version'
+				}
+			}
+		}
+	}
+}

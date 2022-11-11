@@ -2,21 +2,20 @@ pipeline {
     agent none
     stages {
     	stage('Maven') {
-		agent {
-			docker 'mvn:latest' 
+			agent {
+				docker 'mvn:latest' 
+			}
+			steps {
+				sh 'mvn --version'
+			}
 		}
-		steps {
-			sh 'mvn --version'
+		stage('NPM') {
+			agent {
+				docker 'npm:latest' 
+			}
+			steps {
+				sh 'npm --version'
+			}
 		}
-	}
-	
-	stage('NPM') {
-		agent {
-			docker 'npm:latest' 
-		}
-		steps {
-			sh 'npm --version'
-		}
-	}
     }
 }

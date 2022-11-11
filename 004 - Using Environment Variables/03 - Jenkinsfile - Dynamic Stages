@@ -21,8 +21,12 @@ pipeline {
                 script {
                 	def buildConfigs = readJSON text: "$JSON_CONFIG"
                 	buildConfigs.each{ buildConfig ->
-                		sh "echo '$buildConfig.name' && '$buildConfig.command'"
-					}
+                		sh "echo '$buildConfig.name' && $buildConfig.command"
+				
+				stage("${buildConfig.name}") {
+				      sh "$buildConfig.command"
+				}
+			}
                 }
             }
         }

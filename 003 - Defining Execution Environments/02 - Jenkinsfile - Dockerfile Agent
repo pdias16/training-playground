@@ -8,10 +8,10 @@ pipeline {
 		}
 	}
     stages {
-    	stage('build') {
-            steps {        
-                sh 'if [ "$ENV_VARIABLE" != "Value for execution" ]; then exit 1; fi'
-            }
-        }
+		stage('build') {
+		    steps {        
+				sh 'if [ "$ENV_VARIABLE" != "Value for execution" ]; then exit 1; fi'
+		    }
+		}
 	}
 }

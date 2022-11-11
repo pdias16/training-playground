@@ -4,6 +4,9 @@ pipeline {
 			image 'alpine:latest' 
 		}
 	}
+	environment {
+		JSON_CONFIG = ''' [{ name: "Java", command: "echo: 'Java command!'"}, { name: "Node", command: "echo: 'Node command!'" }] '''
+	}
     stages {
         stage('build') {
             steps {

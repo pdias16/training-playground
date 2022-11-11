@@ -1,9 +1,9 @@
 pipeline {
     agent { 
     	dockerfile {
-			filename '02 - Dockerfile - Dockerfile Agent'
+			filename '03 - Dockerfile - Dockerfile Agent'
 			dir '003 - Defining Execution Environments'
-			args '-e ENV_VARIABLE="Value for execution"
+			args '-e ENV_VARIABLE="Value for execution"'
 		}
 	}
     stages {

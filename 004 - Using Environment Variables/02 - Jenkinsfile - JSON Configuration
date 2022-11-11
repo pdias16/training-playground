@@ -5,7 +5,7 @@ pipeline {
 		}
 	}
 	environment {
-		JSON_CONFIG = ''' 
+		JSON_CONFIG = 
 			[{ 
 				name: "Java", 
 				command: "echo: 'Java command!'"
@@ -13,7 +13,7 @@ pipeline {
 				name: "Node", 
 				command: "echo: 'Node command!'"
 			}] 
-		'''
+		
 	}
     stages {
         stage('build') {

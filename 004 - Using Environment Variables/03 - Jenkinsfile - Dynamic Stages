@@ -12,9 +12,6 @@ pipeline {
 			}, { 
 				name: "Node", 
 				command: "echo 'Node command!'"
-			}, { 
-				name: "FrontEnd", 
-				command: "echo 'FrontEnd command!'"
 			}] 
 		'''
 	}

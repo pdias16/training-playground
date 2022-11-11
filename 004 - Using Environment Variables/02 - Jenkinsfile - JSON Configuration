@@ -8,10 +8,10 @@ pipeline {
 		JSON_CONFIG = '''
 			[{ 
 				name: "Java", 
-				command: "echo: 'Java command!'"
+				command: "echo 'Java command!'"
 			}, { 
 				name: "Node", 
-				command: "echo: 'Node command!'"
+				command: "echo 'Node command!'"
 			}] 
 		'''
 	}

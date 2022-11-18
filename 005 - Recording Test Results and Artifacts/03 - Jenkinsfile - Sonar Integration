@@ -21,7 +21,8 @@ pipeline {
 					}
             }
         }
-		stage('SonarQube analysis') {
+	stage('SonarQube analysis') {
+		steps {
 			configFileProvider([configFile(fileId: "settings.xml", targetLocation: 'settings-copy.xml')]) {
 				sh "mvn -s settings-copy.xml \
 					-f '005 - Recording Test Results and Artifacts/Java Application' \
@@ -30,6 +31,6 @@ pipeline {
 					-Dsonar.projectKey='test1811' \
 					-Dsonar.projectName='test1811'"
 			}
-    	}
+		}
 	}
 }

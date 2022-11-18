@@ -4,7 +4,7 @@ pipeline {
 			image 'maven:latest'
 		}
 	}
-	environement {
+	environment {
 		POM_PATH="005 - Recording Test Results and Artifacts/02 - Java Unit Tests/pom.xml"
 	}
     stages {

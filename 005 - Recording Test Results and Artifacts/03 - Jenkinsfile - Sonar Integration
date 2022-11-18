@@ -22,14 +22,14 @@ pipeline {
             }
         }
 		stage('SonarQube analysis') {
-    		configFileProvider([configFile(fileId: "settings.xml", targetLocation: 'settings-copy.xml')]) {
-                    sh "mvn -s settings-copy.xml \
-                            -f '005 - Recording Test Results and Artifacts/Java Application' \
-                            org.sonarsource.scanner.maven:sonar-maven-plugin:3.6.0.1398:sonar \
-                            -Dsonar.host.url='http://sonarqube:9000' \
-                            -Dsonar.projectKey='test1811' \
-                            -Dsonar.projectName='test1811'"
+			configFileProvider([configFile(fileId: "settings.xml", targetLocation: 'settings-copy.xml')]) {
+				sh "mvn -s settings-copy.xml \
+					-f '005 - Recording Test Results and Artifacts/Java Application' \
+					org.sonarsource.scanner.maven:sonar-maven-plugin:3.6.0.1398:sonar \
+					-Dsonar.host.url='http://sonarqube:9000' \
+					-Dsonar.projectKey='test1811' \
+					-Dsonar.projectName='test1811'"
+			}
     	}
-    }
+	}
 }
-

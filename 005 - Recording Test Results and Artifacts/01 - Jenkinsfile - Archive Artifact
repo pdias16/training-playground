@@ -1,13 +1,14 @@
 pipeline {
-    agent { 
-		docker { 
-			image 'alpine:latest' 
+   agent { 
+    	dockerfile {
+			filename '03 - Dockerfile - Install Software Dockerfile'
+			dir '003 - Defining Execution Environments'
 		}
 	}
     stages {
         stage('build') {
             steps {
-                sh "curl www.google.com"
+                sh "curl -o file.html www.google.com"
             }
         }
     }

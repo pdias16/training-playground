@@ -1,14 +1,35 @@
 pipeline {
-    agent { 
-		docker { 
-			image 'alpine:latest' 
-		}
-	}
-    stages {
-        stage('tests') {
-            steps {
-                sh ""
-            }
+    agent {
+        docker {
+            image 'maven:3.3.3'
         }
     }
+    environment {
+                POM_PATH = "005 - Recording Test Results and Artifacts/02 - Java Unit Tests/pom.xml"
+	}
+   	stages {       
+      	stage('build'){
+			steps{
+				 sh "mvn install -f '$POM_PATH' -Dmaven.test.skip=true"
+			}
+    	}
+        stage('tests') {
+            steps {
+			  configFileProvider(
+				[configFile(fileId: 'settings.xml', targetLocation:'copy.xml' )]) {
+						sh "mvn -s copy.xml -f '$POM_PATH' test"
+					}
+            }
+        }
+		stage('SonarQube analysis') {
+    		configFileProvider([configFile(fileId: "settings.xml", targetLocation: 'settings-copy.xml')]) {
+                    sh "mvn -s settings-copy.xml \
+                            -f '005 - Recording Test Results and Artifacts/Java Application' \
+                            org.sonarsource.scanner.maven:sonar-maven-plugin:3.6.0.1398:sonar \
+                            -Dsonar.host.url='http://sonarqube:9000' \
+                            -Dsonar.projectKey='test1811' \
+                            -Dsonar.projectName='test1811'"
+    	}
+    }
 }
+

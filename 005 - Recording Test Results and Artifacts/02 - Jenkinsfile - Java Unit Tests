@@ -1,21 +1,25 @@
 pipeline {
-    agent { 
-    	docker {
-			image 'maven:3.3.3'
-		}
-	}
-	environment {
-		POM_PATH="005 - Recording Test Results and Artifacts/02 - Java Unit Tests"
-	}
-    stages {
+    agent {
+        docker {
+            image 'maven:3.3.3'
+        }
+    }
+    environment {
+                POM_PATH = "005 - Recording Test Results and Artifacts/02 - Java Unit Tests/pom.xml"
+            }
+   stages {       
+      stage('build'){
+        steps{
+             sh "mvn install -f '$POM_PATH' -Dmaven.test.skip=true"
+       }
+    }
         stage('tests') {
             steps {
-	    	sh "mvn install -f \"$POM_PATH\" -Dmaven.test.skip=true"
-		
-                configFileProvider([configFile(fileId: 'settings.xml', variable: 'MAVEN_SETTINGS')]) {
-        		sh 'mvn -s $MAVEN_SETTINGS -Dtest=HelloWorldTest testGetText'
-   			 }
-		 }
+          configFileProvider(
+            [configFile(fileId: 'settings.xml', targetLocation:'copy.xml' )]) {
+                    sh "mvn -s copy.xml -f '$POM_PATH' test"
+                }
+            }
         }
     }
 }

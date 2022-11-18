@@ -4,10 +4,15 @@ pipeline {
 			image 'maven:latest'
 		}
 	}
+	environement {
+		POM_PATH="005 - Recording Test Results and Artifacts/02 - Java Unit Tests/pom.xml"
+	}
     stages {
         stage('tests') {
             steps {
-                configFileProvider([configFile(fileName: 'settings.xml', variable: 'MAVEN_SETTINGS')]) {
+	    	sh "mvn install -f "$POM_PATH" -Dmaven.test.skip=true"
+		
+                configFileProvider([configFile(fileId: 'settings.xml', variable: 'MAVEN_SETTINGS')]) {
         		sh 'mvn -s $MAVEN_SETTINGS -Dtest=HelloWorldTest testGetText'
    			 }
 		 }

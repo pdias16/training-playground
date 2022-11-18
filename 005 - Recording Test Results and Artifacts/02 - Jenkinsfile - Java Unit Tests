@@ -10,6 +10,7 @@ pipeline {
                 configFileProvider([configFile(fileId: 'settings.xml', variable: 'MAVEN_SETTINGS')]) {
         		sh 'mvn -s $MAVEN_SETTINGS -Dtest=HelloWorldTest testGetText'
    			 }
+		 }
         }
     }
 }

@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('tests') {
             steps {
-                configFileProvider([configFile(fileId: 'settings.xml', variable: 'MAVEN_SETTINGS')]) {
+                configFileProvider([configFile(fileName: 'settings.xml', variable: 'MAVEN_SETTINGS')]) {
         		sh 'mvn -s $MAVEN_SETTINGS -Dtest=HelloWorldTest testGetText'
    			 }
 		 }

@@ -1,14 +1,55 @@
 pipeline {
-    agent { 
-		docker { 
-			image 'alpine:latest' 
-		}
-	}
-    stages {
-        stage('tests') {
-            steps {
-                sh ""
+    agent {
+        docker {
+            image 'maven:3.3.3'
+        args '--network training-playground'
+        }
+    }
+    environment {
+                POM_PATH = "005 - Recording Test Results and Artifacts/04 - Publish in Nexus/pom.xml"
+    }
+      stages {       
+          stage('build'){
+            steps{
+               sh "mvn install -f '$POM_PATH' -Dmaven.test.skip=true"
+            }
+            }
+          stage('tests') {
+              steps {
+          configFileProvider(
+          [configFile(fileId: 'settings.xml', targetLocation:'copy.xml' )]) {
+              sh "mvn -s copy.xml -f '$POM_PATH' test"
+            }
+              }
+          }
+    stage('SonarQube analysis') {
+      steps {
+        configFileProvider([configFile(fileId: "settings.xml", targetLocation: 'settings-copy.xml')]) {
+          sh "mvn -s settings-copy.xml \
+            -f \"$POM_PATH\" \
+            org.sonarsource.scanner.maven:sonar-maven-plugin:3.6.0.1398:sonar \
+            -Dsonar.host.url='http://sonarqube:9000' \
+            -Dsonar.projectKey='test1811' \
+            -Dsonar.projectName='test1811'"
+        }
+      }
+    }
+    stage('Deliver JAR') {
+        steps {
+            configFileProvider([configFile(fileId: "settings.xml", targetLocation: 'settings-copy.xml')]) {
+                sh "mvn deploy:deploy-file                                                                              \
+                -s settings-copy.xml                                                                            \
+                -Durl='http://nexus:8081/repository/maven-releases/'                                            \
+                -DrepositoryId='maven-releases'                                                                 \
+                -Dfile='005 - Recording Test Results and Artifacts/04 - Publish in Nexus/target/java-app-1.0.0.jar'  \
+                -Dpackaging=jar                                                                                 \
+                -DgeneratePom=true                                                                              \
+                -DgeneratePom.description='Generated from training-playground'                                  \
+                -DgroupId='training-playground'                                                                 \
+                -DartifactId='training-playground-java-app'                                                     \
+                -Dversion=1.0.2"
             }
         }
     }
+  }
 }

@@ -25,7 +25,7 @@ pipeline {
 		steps {
 			configFileProvider([configFile(fileId: "settings.xml", targetLocation: 'settings-copy.xml')]) {
 				sh "mvn -s settings-copy.xml \
-					-f "$POM_PATH" \
+					-f \"$POM_PATH\" \
 					org.sonarsource.scanner.maven:sonar-maven-plugin:3.6.0.1398:sonar \
 					-Dsonar.host.url='http://sonarqube:9000' \
 					-Dsonar.projectKey='test1811' \

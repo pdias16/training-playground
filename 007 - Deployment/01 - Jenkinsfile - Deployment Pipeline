@@ -1,13 +1,21 @@
 pipeline {
     agent { 
-		docker { 
-			image 'alpine:latest' 
+		docker {
+			image 'maven:3.3.3'
+			args '--network training-playground'
 		}
 	}
     stages {
-        stage('build') {
+        stage('prepare') {
             steps {
-                sh ""
+                sh "curl http://jenkins:8080/jnlpJars/jenkins-cli.jar -o jenkins-cli.jar"
+            }
+        }
+        stage('run') {
+            steps {
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: "JenkinsUsernamePassword", usernameVariable: 'JENKINS_USERNAME', passwordVariable: 'JENKINS_PASSWORD']]) {
+	                sh "java -jar jenkins-cli.jar -s http://jenkins:8080 -auth $JENKINS_USERNAME:$JENKINS_PASSWORD help"
+	            } 
             }
         }
     }

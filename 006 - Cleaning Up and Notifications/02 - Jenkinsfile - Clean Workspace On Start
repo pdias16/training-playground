@@ -5,9 +5,17 @@ pipeline {
 		}
 	}
     stages {
+        stage('prepare') {
+            steps {
+                sh "ls -lta"
+	            cleanWs()
+            }
+        }
         stage('build') {
             steps {
-                sh ""
+                sh "ls -lta"
+                sh "date > test"
+                sh "ls -lta"
             }
         }
     }
